@@ -1,64 +1,161 @@
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
-
+const Constraint = Matter.Constraint;
 var engine, world;
-var box1, pig1;
-var backgroundImg,platform;
-
-function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
-}
-
+var ball,connon;
+var pause;
+var count;
+var rand;
+var score = 0;
+var platform,ground;
+var base1,base2,base3;
+var enemy1,enemy2,enemy3,enemy4,enemy5,enemy6,
+enemy7,enemy8,enemy9,enemy10,enemy11,enemy12;
+var PLAY = 1;
+var END = 0;
+var gameState = PLAY;
 function setup(){
-    var canvas = createCanvas(1200,400);
+    count=500;
+    canvas = createCanvas(1200,400);
     engine = Engine.create();
     world = engine.world;
-
-
-    ground = new Ground(600,height,1200,20);
+    connon = new Cannon(200,210,90,50)
+    base1 = new Ground(600,220,100,20);
+    base2 = new Ground(800,140,100,20);
+    base3 = new Ground(1100,220,100,20);
+    enemy1 = new Enemy(570,120); 
+    enemy2 = new Enemy(620,120);
+    enemy3 = new Enemy(770,110);
+    enemy4 = new Enemy(820,110); 
+    enemy5 = new Enemy(1070,120);
+    enemy6 = new Enemy(1120,120);
+    enemy7 = new Enemy(570,110); 
+    enemy8 = new Enemy(620,110);
+    enemy9 = new Enemy(770,200);
+    enemy10 = new Enemy(820,100); 
+    enemy11 = new Enemy(1070,100);
+    enemy12 = new Enemy(1120,100);
+    ground = new Ground(600,380,1200,20);
     platform = new Ground(150, 305, 300, 170);
+    ball = new Ball(200,200);
+    slingshot = new SlingShot(ball.body,{x:200,y:210});
+    pause = new Ground(2000,380,500,50);
+    //log6 = new Log (230,180,80,PI/2);
+   // chain = new Chain(bird.body,log6.body);
 
-    box1 = new Box(700,320,70,70);
-    box2 = new Box(920,320,70,70);
-    pig1 = new Pig(810, 350);
-    log1 = new Log(810,260,300, PI/2);
-
-    box3 = new Box(700,240,70,70);
-    box4 = new Box(920,240,70,70);
-    pig3 = new Pig(810, 220);
-
-    log3 =  new Log(810,180,300, PI/2);
-
-    box5 = new Box(810,160,70,70);
-    log4 = new Log(760,120,150, PI/7);
-    log5 = new Log(870,120,150, -PI/7);
-
-    bird = new Bird(100,100);
-
+    
 }
+
+
+
 
 function draw(){
-    background(backgroundImg);
+
+    background(204,211,221);
+    
     Engine.update(engine);
-    console.log(box2.body.position.x);
-    console.log(box2.body.position.y);
-    console.log(box2.body.angle);
-    box1.display();
-    box2.display();
-    ground.display();
-    pig1.display();
-    log1.display();
-
-    box3.display();
-    box4.display();
-    pig3.display();
-    log3.display();
-
-    box5.display();
-    log4.display();
-    log5.display();
-
-    bird.display();
+   // ball.x = mouseX;
+    
+   // ball.y = mouseY;
+    //log6.display();
+    //chain.display();
+    frameRate(555);
+    slingshot.display();
     platform.display();
+    //ground.display();
+    enemy1.display();
+    enemy2.display();
+    enemy3.display();
+    enemy4.display();
+    connon.display();
+    enemy5.display();
+    enemy6.display();
+    enemy7.display();
+    enemy8.display();
+    enemy9.display();
+    enemy10.display();
+    enemy11.display();
+    enemy12.display();
+    base1.display();
+    base2.display();
+    base3.display();
+    ball.display();
+    pause.display();
+    ground.display();
+    count--;
+  
+   // console.log("visibility2  " + enemy1.Visibility);
+    if(enemy1.Visibility< 0 && enemy1.Visibility > -16) {
+     score++;
+    }
+    if(enemy2.Visibility< 0 && enemy2.Visibility > -16) {
+        score++;
+       }
+    if(enemy3.Visibility< 0 && enemy3.Visibility > -16) {
+    score++;
+    }
+    if(enemy4.Visibility< 0 && enemy4.Visibility > -16) {
+        score++;
+       }
+    if(enemy5.Visibility< 0 && enemy5.Visibility > -16) {
+      score++;
+    }   
+    if(enemy6.Visibility< 0 && enemy6.Visibility > -16) {
+        score++;
+       }
+    if(enemy7.Visibility< 0 && enemy7.Visibility > -16) {
+    score++;
+    } 
+    if(enemy8.Visibility< 0 && enemy8.Visibility > -16) {
+        score++;
+       } 
+    if(enemy9.Visibility< 0 && enemy9.Visibility > -16) {
+    score++;
+    } 
+    if(enemy10.Visibility< 0 && enemy10.Visibility > -16) {
+        score++;
+       }
+    if(enemy11.Visibility< 0 && enemy11.Visibility > -16) {
+    score++;
+    } 
+    if(enemy12.Visibility< 0 && enemy12.Visibility > -16) {
+        score++;
+       }     
+    text("Game Time: "+ count , 900,50);
+    text("Score: " + score,300,50);
+    var highest = count;
+    if (count<0 || score === 12) {
+        //strokeWeight(7);
+        gameState = END;
+        stroke("red");
+        fill("red");
+        textSize(30);
+        text("Game Over:", 600,200);
+    }
+    
+   // console.log("Ballobject code - "+ball);
+
 }
+/*function mouseDragged(){
+    Matter.body.setPosition(ball.body,{x:mouseX,y:mouseY});
+    }
+
+function mouseReleased(){
+    SlingShot.fly();
+}*/
+function mouseDragged(){
+    Matter.Body.setPosition(ball.body, {x: mouseX , y: mouseY});
+}
+
+
+function mouseReleased(){
+    slingshot.fly();
+}
+
+
+function keyPressed() {
+    if (keyCode === 32) {
+        slingshot.attach(ball.body);
+    }
+  }  
