@@ -53,7 +53,57 @@ function setup(){
 function draw(){
 
     background(204,211,221);
-    
+    if (gameState === PLAY) {
+        frameRate(555); 
+        count--;
+  
+   
+    connon.display();// console.log("visibility2  " + enemy1.Visibility);
+    if(enemy1.Visibility< 0 && enemy1.Visibility > -16) {
+    score++;
+    }
+    if(enemy2.Visibility< 0 && enemy2.Visibility > -16) {
+        score++;
+    }
+    if(enemy3.Visibility< 0 && enemy3.Visibility > -16) {
+    score++;
+    }
+    if(enemy4.Visibility< 0 && enemy4.Visibility > -16) {
+        score++;
+    }
+    if(enemy5.Visibility< 0 && enemy5.Visibility > -16) {
+    score++;
+    }   
+    if(enemy6.Visibility< 0 && enemy6.Visibility > -16) {
+        score++;
+    }
+    if(enemy7.Visibility< 0 && enemy7.Visibility > -16) {
+    score++;
+    } 
+    if(enemy8.Visibility< 0 && enemy8.Visibility > -16) {
+        score++;
+    } 
+    if(enemy9.Visibility< 0 && enemy9.Visibility > -16) {
+    score++;
+    } 
+    if(enemy10.Visibility< 0 && enemy10.Visibility > -16) {
+        score++;
+    }
+    if(enemy11.Visibility< 0 && enemy11.Visibility > -16) {
+    score++;
+    } 
+    if(enemy12.Visibility< 0 && enemy12.Visibility > -16) {
+        score++;
+    }     
+
+
+
+    }else if(gameState ===END){
+        count = 0;
+        ball.x  = 200;
+        ball.y  = 210;
+        
+    }
     Engine.update(engine);
    // ball.x = mouseX;
     
@@ -68,7 +118,6 @@ function draw(){
     enemy2.display();
     enemy3.display();
     enemy4.display();
-    connon.display();
     enemy5.display();
     enemy6.display();
     enemy7.display();
@@ -83,45 +132,7 @@ function draw(){
     ball.display();
     pause.display();
     ground.display();
-    count--;
-  
-   // console.log("visibility2  " + enemy1.Visibility);
-    if(enemy1.Visibility< 0 && enemy1.Visibility > -16) {
-     score++;
-    }
-    if(enemy2.Visibility< 0 && enemy2.Visibility > -16) {
-        score++;
-       }
-    if(enemy3.Visibility< 0 && enemy3.Visibility > -16) {
-    score++;
-    }
-    if(enemy4.Visibility< 0 && enemy4.Visibility > -16) {
-        score++;
-       }
-    if(enemy5.Visibility< 0 && enemy5.Visibility > -16) {
-      score++;
-    }   
-    if(enemy6.Visibility< 0 && enemy6.Visibility > -16) {
-        score++;
-       }
-    if(enemy7.Visibility< 0 && enemy7.Visibility > -16) {
-    score++;
-    } 
-    if(enemy8.Visibility< 0 && enemy8.Visibility > -16) {
-        score++;
-       } 
-    if(enemy9.Visibility< 0 && enemy9.Visibility > -16) {
-    score++;
-    } 
-    if(enemy10.Visibility< 0 && enemy10.Visibility > -16) {
-        score++;
-       }
-    if(enemy11.Visibility< 0 && enemy11.Visibility > -16) {
-    score++;
-    } 
-    if(enemy12.Visibility< 0 && enemy12.Visibility > -16) {
-        score++;
-       }     
+    
     text("Game Time: "+ count , 900,50);
     text("Score: " + score,300,50);
     var highest = count;
